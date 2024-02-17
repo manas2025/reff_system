@@ -8,7 +8,7 @@ const { log } = require("console");
 const db = mysql.createConnection({
     host: process.env.host,
     user: process.env.user,
-    password: process.env.pss,
+    password: process.env.pass,
     database: process.env.DATABASE
 });
 
@@ -20,7 +20,7 @@ exports.login = async (req, res) => {
         }
 
 
-        db.query('select * from user where email=?',
+        db.query('select * from userrr where email=?',
             [email],
             async (error, results) => {
                 console.log(results);
