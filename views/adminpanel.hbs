@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reff_System - Withdraw</title>
+    <link rel="stylesheet" href="/css/styles3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <header class="header">
+        <div class="containerh">
+            <h1>Reff_System</h1>
+            <nav>
+                <ul>
+                    <li><a href="/adminlogout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <h1>Admin Panel</h1>
+            <form action="/auth/adminpanel" method="post">
+                <label for="status">Filter by Status:</label>
+                <select id="status" name="status">
+                    <option value="all">All</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+                <div class="button input-boxx">
+                    <input type="submit" value="Show Request">
+                </div>
+            </form>
+            <br />
+            <table class="table-width">
+                <h2>Withdraw Request List</h2>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>User Email</th>
+                        <th>Wallet Amount</th>
+                        <th>Amount</th>
+                        <th>Account Number</th>
+                        <th>IFSC Code</th>
+                        <th>Status</th>
+                        <th>Data Update</th>
+                        <th>Change Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr>
+                        <td>{{this.date}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.amount_avl}}</td>
+                        <td>{{this.amount}}</td>
+                        <td>{{this.acc_no}}</td>
+                        <td>{{this.ifsc}}</td>
+                        <td>{{this.status}}</td>
+                        <td>
+                            <form action="/auth/updatedata" method="post">
+                                <input type="hidden" name="withdrawId" value="{{this.id}}">
+                                <input type="hidden" name="amount" value="{{this.amount}}">
+                                <input type="hidden" name="actual_amount" value="{{this.amount_avl}}">
+                                <input type="hidden" name="email" value="{{this.email}}">
+                                {{!-- <select name="status">
+                                    <option value="pending">Select Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="rejected">Rejected</option>
+                                </select> --}}
+                            <button type="submit">Edit</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/auth/updateStatus" method="post">
+                                <input type="hidden" name="withdrawId" value="{{this.id}}">
+                                <input type="hidden" name="amount" value="{{this.amount}}">
+                                <input type="hidden" name="actual_amount" value="{{this.amount_avl}}">
+                                <input type="hidden" name="email" value="{{this.email}}">
+                                <select name="status">
+                                    <option value="pending">Select Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                        </td>
+                        <td>
+                            <button type="submit">Update</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
