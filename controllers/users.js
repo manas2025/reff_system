@@ -20,7 +20,7 @@ exports.login = async (req, res) => {
         }
 
 
-        db.query('select * from userrr where email=?',
+        db.query('select * from user where email=?',
             [email],
             async (error, results) => {
                 console.log(results);
